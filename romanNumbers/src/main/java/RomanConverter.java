@@ -20,7 +20,7 @@ public class RomanConverter {
         if(romanNum == null) {
             return false;
         } else {
-            if (romanNum.matches("^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")
+            if (romanNum.matches("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")
                     && !hasBlankSpacesOrNothing(romanNum)) {
                 return true;
             }
@@ -35,26 +35,57 @@ public class RomanConverter {
         return false;
     }
 
-    public int romanToDecimal(String romanNum) {
-        String romanNumber = romanNum.toUpperCase();
-        if (isValidRomanNumber(romanNumber)) {
-            int decimalNumber = 0;
-            int decimalNumberAux = 0;
-            int previousNumber = 0;
-            int length = romanNumber.length();
-            for (int index = length - 1; index >= 0; index--) {
-                char character = romanNumber.charAt(index);
-                previousNumber = decimalNumberAux;
-                decimalNumberAux = basicNumbers.get(character);
-                if (decimalNumberAux < previousNumber) {
-                    decimalNumber = decimalNumber - decimalNumberAux;
+    public boolean isCaseConsistent(String romanNum) {
+        if(romanNum == null) {
+            return false;
+        } else {
+            int length = romanNum.length();
+            boolean lowerCase = false;
+            boolean upperCase = false;
+            int countLower = 0;
+            int countUpper = 0;
+            for (int index = 0; index < length; index++) {
+                char indexCharacter = romanNum.charAt(index);
+                if (Character.isLowerCase(indexCharacter) ) {
+                    countLower++;
+                    if(countLower == 1) {
+                        lowerCase = true;
+                    }
                 } else {
-                    decimalNumber = decimalNumber + decimalNumberAux;
+                    countUpper++;
+                    if(countUpper == 1) {
+                        upperCase = true;
+                    }
                 }
             }
-            return decimalNumber;
+            return !(lowerCase && upperCase);
+        }
+    }
+
+    public int romanToDecimal(String romanNum) {
+        if (isCaseConsistent(romanNum)) {
+            String romanNumber = romanNum.toUpperCase();
+            if (isValidRomanNumber(romanNumber)) {
+                int decimalNumber = 0;
+                int decimalNumberAux = 0;
+                int previousNumber;
+                int length = romanNumber.length();
+                for (int index = length - 1; index >= 0; index--) {
+                    char character = romanNumber.charAt(index);
+                    previousNumber = decimalNumberAux;
+                    decimalNumberAux = basicNumbers.get(character);
+                    if (decimalNumberAux < previousNumber) {
+                        decimalNumber = decimalNumber - decimalNumberAux;
+                    } else {
+                        decimalNumber = decimalNumber + decimalNumberAux;
+                    }
+                }
+                return decimalNumber;
+            } else {
+                throw new IllegalArgumentException("Invalid string input");
+            }
         } else {
-            throw new IllegalArgumentException("Invalid string input");
+            throw new IllegalArgumentException("Case is not consistent");
         }
     }
 }
