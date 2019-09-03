@@ -1,12 +1,16 @@
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class RomanConverterTest {
-    RomanConverter converter = new RomanConverter();
+    RomanConverter converter;
+
+    @Before
+    public void initializeConverter() {
+        converter = new RomanConverter();
+    }
 
     @Test (expected = IllegalArgumentException.class)
     public void romanToDecimal_blankSpaces_throwsException() {
