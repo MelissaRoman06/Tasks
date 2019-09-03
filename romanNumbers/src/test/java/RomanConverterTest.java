@@ -12,7 +12,7 @@ public class RomanConverterTest {
         converter = new RomanConverter();
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_blankSpaces_throwsException() {
         int decimalNumber = converter.romanToDecimal("V I");
     }
@@ -25,42 +25,42 @@ public class RomanConverterTest {
         assertEquals(7, decimalNumberUpperCase);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_invalidCharacters_throwsException() {
         int decimalNumber = converter.romanToDecimal("XIU");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersMMMM_throwsException() {
         int decimalNumber = converter.romanToDecimal("MMMM");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersCCCC_throwsException() {
         int decimalNumber = converter.romanToDecimal("CCCC");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersXXXX_throwsException() {
         int decimalNumber = converter.romanToDecimal("XXXX");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersIIII_throwsException() {
         int decimalNumber = converter.romanToDecimal("IIII");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersDD_throwsException() {
         int decimalNumber = converter.romanToDecimal("DD");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersLL_throwsException() {
         int decimalNumber = converter.romanToDecimal("LL");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_excessiveConsecutiveLettersVV_throwsException() {
         int decimalNumber = converter.romanToDecimal("VV");
     }
@@ -77,7 +77,7 @@ public class RomanConverterTest {
         assertEquals(3000, decimalNumber3000);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_restrictionSubtractiveNotation_throwsException() {
         int decimalNumber3 = converter.romanToDecimal("IIX");
     }
@@ -112,22 +112,27 @@ public class RomanConverterTest {
         assertEquals(1000, actual1000);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_incorrectCombination_throwsException() {
         int decimalNumber = converter.romanToDecimal("XVX");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void romanToDecimal_inconsistentCase_throwsException() {
-        int decimalNumber = converter.romanToDecimal("XxX");
+        try {
+            int decimalNumber = converter.romanToDecimal("XxX");
+        } catch (Exception exception) {
+            assertEquals("Case is not consistent", exception.getMessage());
+        }
+
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_emptyString_throwsException() {
         int decimalNumber = converter.romanToDecimal("");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void romanToDecimal_nullString_throwsException() {
         int decimalNumber = converter.romanToDecimal(null);
     }
