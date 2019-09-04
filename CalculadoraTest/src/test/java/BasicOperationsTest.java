@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
@@ -25,6 +26,7 @@ public class BasicOperationsTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+
   @Before
   public void setUp() {
     ChromeDriverManager.getInstance().version("76.0.3809.132").setup();
@@ -32,18 +34,20 @@ public class BasicOperationsTest {
     driver = new ChromeDriver(chromeOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
+    PageFactory.initElements(driver, this);
   }
+
+  @FindBy(name = "expr")
+  WebElement resultTextBox;
+
   @After
   public void tearDown() {
     driver.quit();
   }
 
   public String getResult() {
-    return driver.findElement(By.name("expr")).getAttribute("value");
+    return resultTextBox.getAttribute("value");
   }
-
-  @FindBy(name = "expr")
-  WebElement resultTextBox;
 
   public void pressKey(String key) {
     driver.findElement(By.linkText(key)).click();
