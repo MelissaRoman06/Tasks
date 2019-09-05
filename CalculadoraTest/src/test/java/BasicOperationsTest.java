@@ -14,12 +14,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasicOperationsTest {
-  private static WebDriver driver;
-  private static OperatorSimbol operatorSimbol;
+  private WebDriver driver;
+  private OperatorSimbol operatorSimbol;
 
-  @BeforeClass
-  public static void setUp() {
-    ChromeDriverManager.getInstance().version("76.0.3809.132").setup();
+  @Before
+  public void setUp() {
+    ChromeDriverManager.getInstance().version("76.0.3809.126").setup();
     ChromeOptions chromeOptions = new ChromeOptions();
     driver = new ChromeDriver(chromeOptions);
     PageFactory.initElements(driver, this);
@@ -37,8 +37,8 @@ public class BasicOperationsTest {
   @FindBy(linkText = "=")
   WebElement equalKey;
 
-  @AfterClass
-  public static void tearDown() {
+  @After
+  public void tearDown() {
     driver.quit();
   }
 
