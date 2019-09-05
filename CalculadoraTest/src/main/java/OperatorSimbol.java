@@ -7,7 +7,7 @@ public class OperatorSimbol {
         operators = new HashMap<Operations, String>() {{
             put(Operations.ADD, "+");
             put(Operations.SUBTRACT, "-");
-            put(Operations.MULTIPLICATE, "×");
+            put(Operations.MULTIPLY, "×");
             put(Operations.DIVIDE, "÷");
         }};
     }

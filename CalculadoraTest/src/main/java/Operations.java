@@ -1,6 +1,6 @@
 public enum Operations {
     ADD,
     SUBTRACT,
-    MULTIPLICATE,
+    MULTIPLY,
     DIVIDE
 }

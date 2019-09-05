@@ -62,16 +62,20 @@ public class BasicOperationsTest {
     equalKey.click();
   }
 
-  public void enterNumber(int number) {
-    String numberString = Integer.toString(number);
+  public void enterNumber(double number) {
+    String numberString = Double.toString(number);
     int numberLength = numberString.length();
     for (int index = 0; index < numberLength; index++) {
       char digitIndex = numberString.charAt(index);
-      pressKey(Character.toString(digitIndex));
+      if(digitIndex == '.') {
+        pressKey("·");
+      } else {
+        pressKey(Character.toString(digitIndex));
+      }
     }
   }
 
-  public void operation(int number1, int number2, Operations operation) {
+  public void operation(double number1, double number2, Operations operation) {
     clearResult();
     enterNumber(number1);
     pressKey(operation);
@@ -99,7 +103,7 @@ public class BasicOperationsTest {
 
   @Test
   public void basicOperations_multiplication() {
-    operation(2, 3, Operations.MULTIPLICATE);
+    operation(2, 3, Operations.MULTIPLY);
     assertThat(getResult(), is("6"));
   }
 
@@ -107,5 +111,29 @@ public class BasicOperationsTest {
   public void basicOperations_division() {
     operation(9, 3, Operations.DIVIDE);
     assertThat(getResult(), is("3"));
+  }
+
+  @Test
+  public void basicOperations_addition_floatNumbers() {
+    operation(9.1, 3.2, Operations.ADD);
+    assertThat(getResult(), is("12.3"));
+  }
+
+  @Test
+  public void basicOperations_division_infinity() {
+    operation(1, 0, Operations.DIVIDE);
+    assertThat(getResult(), is("Infinity"));
+  }
+
+  @Test
+  public void basicOperations_division_cero() {
+    operation(0, 2, Operations.DIVIDE);
+    assertThat(getResult(), is("0"));
+  }
+
+  @Test
+  public void basicOperations_division_NaN() {
+    operation(0, 0, Operations.DIVIDE);
+    assertThat(getResult(), is("NaN"));
   }
 }
