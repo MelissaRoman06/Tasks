@@ -7,17 +7,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * This class contains all tests to be performed to calculadora.org.
+ */
 public class BasicOperationsTest {
   private WebDriver driver;
-  private OperatorSymbol operatorSymbol;
+  private CalculadoraPage calculadoraPage;
 
   @Before
   public void setUp() {
@@ -27,115 +27,65 @@ public class BasicOperationsTest {
     PageFactory.initElements(driver, this);
     driver.get("https://www.calculadora.org/");
     driver.manage().window().maximize();
-    operatorSymbol = new OperatorSymbol();
+    calculadoraPage = new CalculadoraPage(driver);
   }
-
-  @FindBy(name = "expr")
-  WebElement resultTextBox;
-
-  @FindBy(linkText = "C")
-  WebElement clearKey;
-
-  @FindBy(linkText = "=")
-  WebElement equalKey;
 
   @After
   public void tearDown() {
     driver.quit();
   }
 
-  public String getResult() {
-    return resultTextBox.getAttribute("value");
-  }
-
-  public void pressKey(String key) {
-    driver.findElement(By.linkText(key)).click();
-  }
-
-  public void pressKey(Operations operation) {
-    pressKey(operatorSymbol.getKeySymbol(operation));
-  }
-
-  public void clearResult() {
-    clearKey.click();
-  }
-
-  public void pressEqual() {
-    equalKey.click();
-  }
-
-  public void enterNumber(double number) {
-    String numberString = Double.toString(number);
-    int numberLength = numberString.length();
-    for (int index = 0; index < numberLength; index++) {
-      char digitIndex = numberString.charAt(index);
-      if(digitIndex == '.') {
-        pressKey("·");
-      } else {
-        pressKey(Character.toString(digitIndex));
-      }
-    }
-  }
-
-  public void operation(double number1, double number2, Operations operation) {
-    clearResult();
-    enterNumber(number1);
-    pressKey(operation);
-    enterNumber(number2);
-    pressEqual();
-  }
-
   @Test
   public void basicOperations_addition() {
-    operation(1, 2, Operations.ADD);
-    assertThat(getResult(), is("3"));
+    calculadoraPage.operation(1, 2, Operations.ADD);
+    assertThat(calculadoraPage.getResult(), is("3"));
   }
 
   @Test
   public void basicOperations_addition_moreThan1Digit() {
-    operation(123, 275, Operations.ADD);
-    assertThat(getResult(), is("398"));
+    calculadoraPage.operation(123, 275, Operations.ADD);
+    assertThat(calculadoraPage.getResult(), is("398"));
   }
 
   @Test
   public void basicOperations_subtraction() {
-    operation(2, 1, Operations.SUBTRACT);
-    assertThat(getResult(), is("1"));
+    calculadoraPage.operation(2, 1, Operations.SUBTRACT);
+    assertThat(calculadoraPage.getResult(), is("1"));
   }
 
   @Test
   public void basicOperations_multiplication() {
-    operation(2, 3, Operations.MULTIPLY);
-    assertThat(getResult(), is("6"));
+    calculadoraPage.operation(2, 3, Operations.MULTIPLY);
+    assertThat(calculadoraPage.getResult(), is("6"));
   }
 
   @Test
   public void basicOperations_division() {
-    operation(9, 3, Operations.DIVIDE);
-    assertThat(getResult(), is("3"));
+    calculadoraPage.operation(9, 3, Operations.DIVIDE);
+    assertThat(calculadoraPage.getResult(), is("3"));
   }
 
   @Test
   public void basicOperations_addition_floatNumbers() {
-    operation(9.1, 3.2, Operations.ADD);
-    assertThat(getResult(), is("12.3"));
+    calculadoraPage.operation(9.1, 3.2, Operations.ADD);
+    assertThat(calculadoraPage.getResult(), is("12.3"));
   }
 
   @Test
   public void basicOperations_division_infinity() {
-    operation(1, 0, Operations.DIVIDE);
-    assertThat(getResult(), is("Infinity"));
+    calculadoraPage.operation(1, 0, Operations.DIVIDE);
+    assertThat(calculadoraPage.getResult(), is("Infinity"));
   }
 
   @Test
   public void basicOperations_division_zero() {
-    operation(0, 2, Operations.DIVIDE);
-    assertThat(getResult(), is("0"));
+    calculadoraPage.operation(0, 2, Operations.DIVIDE);
+    assertThat(calculadoraPage.getResult(), is("0"));
   }
 
   @Test
   public void basicOperations_division_NaN() {
-    operation(0, 0, Operations.DIVIDE);
-    assertThat(getResult(), is("NaN"));
+    calculadoraPage.operation(0, 0, Operations.DIVIDE);
+    assertThat(calculadoraPage.getResult(), is("NaN"));
   }
 }
