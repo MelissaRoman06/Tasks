@@ -15,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasicOperationsTest {
   private WebDriver driver;
-  private OperatorSimbol operatorSimbol;
+  private OperatorSymbol operatorSimbol;
 
   @Before
   public void setUp() {
@@ -25,7 +25,7 @@ public class BasicOperationsTest {
     PageFactory.initElements(driver, this);
     driver.get("https://www.calculadora.org/");
     driver.manage().window().maximize();
-    operatorSimbol = new OperatorSimbol();
+    operatorSimbol = new OperatorSymbol();
   }
 
   @FindBy(name = "expr")
@@ -51,7 +51,7 @@ public class BasicOperationsTest {
   }
 
   public void pressKey(Operations operation) {
-    pressKey(operatorSimbol.getKeySimbol(operation));
+    pressKey(operatorSimbol.getKeySymbol(operation));
   }
 
   public void clearResult() {
@@ -126,7 +126,7 @@ public class BasicOperationsTest {
   }
 
   @Test
-  public void basicOperations_division_cero() {
+  public void basicOperations_division_zero() {
     operation(0, 2, Operations.DIVIDE);
     assertThat(getResult(), is("0"));
   }
