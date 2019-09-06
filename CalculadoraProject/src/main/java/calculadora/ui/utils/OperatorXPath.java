@@ -5,6 +5,9 @@ import java.util.Map;
 
 /**
  * This class has a hash map used to parse Operations enum to corresponding key symbol.
+ *
+ * @author Melissa Román
+ * @version 1.0
  */
 public class OperatorXPath {
     private Map<Operations, String> operators;

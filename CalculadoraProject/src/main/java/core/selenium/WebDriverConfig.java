@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * WebDriverConfig reads properties file to set waits' time to be used by the web driver.
+ *
+ * @author Melissa Román
+ * @version 1.0
+ */
 public class WebDriverConfig {
     private int implicitWaitTime;
     private int explicitWaitTime;
@@ -19,9 +25,9 @@ public class WebDriverConfig {
     }
 
     /**
-     * Gets the configInstance of WebDriverConfig.
+     * Gets the instance of WebDriverConfig.
      *
-     * @return a configInstance.
+     * @return configInstance.
      */
     public static WebDriverConfig getInstance() {
         if (configInstance == null) {
@@ -31,7 +37,7 @@ public class WebDriverConfig {
     }
 
     /**
-     * Initializes WebDriverConfig.
+     * Reads properties file for Web Driver waits' config.
      */
     public void readProperties() {
         try (InputStream input = new FileInputStream("gradle.properties")) {
@@ -48,7 +54,7 @@ public class WebDriverConfig {
     /**
      * Gets the implicit wait time set for the WebDriver.
      *
-     * @return The implicit time.
+     * @return Implicit wait time.
      */
     public int getImplicitWaitTime() {
         return implicitWaitTime;
@@ -57,7 +63,7 @@ public class WebDriverConfig {
     /**
      * Gets the explicit wait time set for the WebDriver.
      *
-     * @return The explicit time.
+     * @return Explicit wait time.
      */
     public int getExplicitWaitTime() {
         return explicitWaitTime;
@@ -66,7 +72,7 @@ public class WebDriverConfig {
     /**
      * Gets the sleep time wait set for the WebDriver.
      *
-     * @return Sleep time wait.
+     * @return Sleep wait time.
      */
     public int getWaitSleepTime() {
         return waitSleepTime;

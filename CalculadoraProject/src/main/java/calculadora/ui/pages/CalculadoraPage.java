@@ -8,6 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * CalculadoraPage class models calculadora.org.
+ *
+ * @author Melissa Román
+ * @version 1.0
+ */
 public class CalculadoraPage {
     private WebDriver driver;
     private OperatorXPath operatorXPath;

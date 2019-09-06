@@ -9,6 +9,12 @@ import org.openqa.selenium.remote.CapabilityType;
 import java.io.File;
 import java.util.HashMap;
 
+/**
+ * Chrome class sets the browser.
+ *
+ * @author Melissa Román
+ * @version 1.0
+ */
 public class Chrome {
     /**
      * Initializes Chrome driver.
@@ -30,10 +36,6 @@ public class Chrome {
         // By setting safe browsing enabled to true, there won't be alert messages when download XML Files.
         chromePrefs.put("safebrowsing.enabled", "true");
         ChromeOptions chromeOptions = new ChromeOptions();
-        // By adding disable infobars argument, Chrome won't display that it is being controlled by automated
-        // test software message.
-        chromeOptions.addArguments("disable-infobars");
-        chromeOptions.setExperimentalOption("prefs", chromePrefs);
         // Setting driver to ignore SSL errors.
         chromeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         chromeOptions.setCapability(ChromeOptions.CAPABILITY, chromeOptions);

@@ -6,22 +6,28 @@ import core.selenium.webdrivers.Chrome;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * WebDriverManager is in charge of returning the web driver to be used for the tests.
+ *
+ * @author Melissa Román
+ * @version 1.0
+ */
 public class WebDriverManager {
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
     private static WebDriverManager driverManagerInstance;
 
     /**
-     * Constructor WebDriverConfig.
+     * Constructor WebDriverManager.
      */
     private WebDriverManager() {
         initialize();
     }
 
     /**
-     * Gets Instance of a WebElement.
+     * Gets Instance of a Web Driver Manager.
      *
-     * @return Instance of WebElement.
+     * @return Instance of Web Driver Manager.
      */
     public static WebDriverManager getInstance() {
         if (driverManagerInstance == null) {
@@ -31,7 +37,7 @@ public class WebDriverManager {
     }
 
     /**
-     * Initializes the settings for the driver.
+     * Initializes the settings for the Web Driver.
      */
     private void initialize() {
         this.webDriver = Chrome.initDriver();
@@ -44,7 +50,7 @@ public class WebDriverManager {
     }
 
     /**
-     * Gets the WebDriver.
+     * Allows to get the Web Driver.
      *
      * @return WebDriver.
      */
@@ -53,7 +59,7 @@ public class WebDriverManager {
     }
 
     /**
-     * Gets the WebDriver Wait.
+     * Gets the Web Driver wait.
      *
      * @return WebDriverWait.
      */
