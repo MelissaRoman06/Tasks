@@ -4,33 +4,61 @@ import calculadora.ui.utils.Operations;
 import calculadora.ui.utils.OperatorXPath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class CalculadoraPage {
     private WebDriver driver;
     private OperatorXPath operatorXPath;
-    private By resultTextBox = By.name("expr");
-    private By clearKey = By.linkText("C");
-    private By equalKey = By.linkText("=");
+
+    /**
+     * Finds clear key by link text.
+     */
+    @FindBy(linkText = "C")
+    WebElement clearKey;
+
+    /**
+     * Finds equal key by link text.
+     */
+    @FindBy(linkText = "=")
+    WebElement equalKey;
+
+    /**
+     * Finds result text box key by name.
+     */
+    @FindBy(name = "expr")
+    WebElement resultTextBox;
+
+    /**
+     * Finds decimal point key by xpath.
+     */
+    @FindBy(xpath = "(//a[contains(@href, '#')])[16]")
+    WebElement pointKey;
 
     /**
      * Constructs the page with a web driver as input.
+     *
      * @param driver - Web driver to de used.
      */
-    public CalculadoraPage(WebDriver driver){
+    public CalculadoraPage(WebDriver driver) {
         this.driver = driver;
         operatorXPath = new OperatorXPath();
+        PageFactory.initElements(driver, this);
     }
 
     /**
      * Allows to get the result from result text box.
+     *
      * @return - Result of the performed operation.
      */
     public String getResult() {
-        return driver.findElement(resultTextBox).getAttribute("value");
+        return resultTextBox.getAttribute("value");
     }
 
     /**
      * Presses the key according to string input.
+     *
      * @param key - Key to be pressed.
      */
     public void pressKey(String key) {
@@ -39,6 +67,7 @@ public class CalculadoraPage {
 
     /**
      * Presses the operator key according to operation enum input.
+     *
      * @param operation - Operation key to be pressed.
      */
     public void pressOperator(Operations operation) {
@@ -49,18 +78,19 @@ public class CalculadoraPage {
      * Clears the result from result text box by pressing C key.
      */
     public void clearResult() {
-        driver.findElement(clearKey).click();
+        clearKey.click();
     }
 
     /**
      * Presses equal key.
      */
     public void pressEqual() {
-        driver.findElement(equalKey).click();
+        equalKey.click();
     }
 
     /**
      * Enters the given number.
+     *
      * @param number - Number to be entered.
      */
     public void enterNumber(double number) {
@@ -68,8 +98,8 @@ public class CalculadoraPage {
         int numberLength = numberString.length();
         for (int index = 0; index < numberLength; index++) {
             char digitIndex = numberString.charAt(index);
-            if(digitIndex == '.') {
-                driver.findElement(By.xpath("(//a[contains(@href, '#')])[16]")).click();
+            if (digitIndex == '.') {
+                pointKey.click();
             } else {
                 pressKey(Character.toString(digitIndex));
             }
@@ -78,8 +108,9 @@ public class CalculadoraPage {
 
     /**
      * Perform the given operation using the given numbers.
-     * @param number1 - First number to be entered.
-     * @param number2 - Second number to be entered.
+     *
+     * @param number1   - First number to be entered.
+     * @param number2   - Second number to be entered.
      * @param operation - Operation to be performed between the given numbers.
      */
     public void operation(double number1, double number2, Operations operation) {

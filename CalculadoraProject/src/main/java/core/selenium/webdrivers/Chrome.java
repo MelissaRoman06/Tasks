@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class Chrome {
     /**
      * Initializes Chrome driver.
+     *
      * @return New ChromeDriver.
      */
     public static WebDriver initDriver() {
