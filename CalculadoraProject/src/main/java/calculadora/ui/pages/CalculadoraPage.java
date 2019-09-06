@@ -1,12 +1,13 @@
+package calculadora.ui.pages;
+
+import calculadora.ui.utils.Operations;
+import calculadora.ui.utils.OperatorXPath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-/**
- * Class which has all basic functions of calculadora.org
- */
 public class CalculadoraPage {
     private WebDriver driver;
-    private OperatorSymbol operatorSymbol;
+    private OperatorXPath operatorXPath;
     private By resultTextBox = By.name("expr");
     private By clearKey = By.linkText("C");
     private By equalKey = By.linkText("=");
@@ -17,7 +18,7 @@ public class CalculadoraPage {
      */
     public CalculadoraPage(WebDriver driver){
         this.driver = driver;
-        operatorSymbol = new OperatorSymbol();
+        operatorXPath = new OperatorXPath();
     }
 
     /**
@@ -40,8 +41,8 @@ public class CalculadoraPage {
      * Presses the operator key according to operation enum input.
      * @param operation - Operation key to be pressed.
      */
-    public void pressKey(Operations operation) {
-        pressKey(operatorSymbol.getKeySymbol(operation));
+    public void pressOperator(Operations operation) {
+        driver.findElement(By.xpath(operatorXPath.getKeyXPath(operation))).click();
     }
 
     /**
@@ -68,7 +69,7 @@ public class CalculadoraPage {
         for (int index = 0; index < numberLength; index++) {
             char digitIndex = numberString.charAt(index);
             if(digitIndex == '.') {
-                pressKey("·");
+                driver.findElement(By.xpath("(//a[contains(@href, '#')])[16]")).click();
             } else {
                 pressKey(Character.toString(digitIndex));
             }
@@ -84,7 +85,7 @@ public class CalculadoraPage {
     public void operation(double number1, double number2, Operations operation) {
         clearResult();
         enterNumber(number1);
-        pressKey(operation);
+        pressOperator(operation);
         enterNumber(number2);
         pressEqual();
     }
