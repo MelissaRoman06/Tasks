@@ -2,7 +2,9 @@ package core.selenium;
 
 import java.util.concurrent.TimeUnit;
 
+import core.selenium.webdrivers.BrowserFactory;
 import core.selenium.webdrivers.Chrome;
+import core.selenium.webdrivers.Firefox;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,7 +42,7 @@ public class WebDriverManager {
      * Initializes the settings for the Web Driver.
      */
     private void initialize() {
-        this.webDriver = Chrome.initDriver();
+        this.webDriver = BrowserFactory.getBrowser(WebDriverConfig.getInstance().getBrowserName()).initDriver();
         this.webDriver.manage().window().maximize();
         this.webDriver.manage()
                 .timeouts()

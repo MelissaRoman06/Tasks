@@ -15,6 +15,7 @@ public class WebDriverConfig {
     private int implicitWaitTime;
     private int explicitWaitTime;
     private int waitSleepTime;
+    private String browserName;
     private static WebDriverConfig configInstance;
 
     /**
@@ -43,12 +44,22 @@ public class WebDriverConfig {
         try (InputStream input = new FileInputStream("gradle.properties")) {
             Properties properties = new Properties();
             properties.load(input);
+            browserName = properties.getProperty("browserName");
             implicitWaitTime = Integer.parseInt(properties.getProperty("implicitWaitTime"));
             explicitWaitTime = Integer.parseInt(properties.getProperty("explicitWaitTime"));
             waitSleepTime = Integer.parseInt(properties.getProperty("waitSleepTime"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Gets the implicit wait time set for the WebDriver.
+     *
+     * @return Implicit wait time.
+     */
+    public String getBrowserName() {
+        return browserName;
     }
 
     /**

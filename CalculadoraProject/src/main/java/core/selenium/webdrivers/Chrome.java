@@ -15,13 +15,13 @@ import java.util.HashMap;
  * @author Melissa Román
  * @version 1.0
  */
-public class Chrome {
+public class Chrome implements IBrowser{
     /**
      * Initializes Chrome driver.
      *
      * @return New ChromeDriver.
      */
-    public static WebDriver initDriver() {
+    public WebDriver initDriver() {
         ChromeDriverManager.getInstance().version("76.0.3809.126").setup();
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
